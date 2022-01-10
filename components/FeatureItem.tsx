@@ -1,4 +1,4 @@
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
 import { useFirestore, useUser } from 'reactfire';
 
 interface IFeatureItemProps {
@@ -14,7 +14,7 @@ export function FeatureItem({ feature }: IFeatureItemProps) {
 
   const vote = () => {
     updateDoc(doc(featuresCollection, feature.id), {
-      votes: [...votes, user?.uid],
+      votes: arrayUnion(user?.uid),
     });
   };
 
