@@ -1,5 +1,6 @@
 import { collection, query } from 'firebase/firestore';
 import { useFirestore, useFirestoreCollectionData } from 'reactfire';
+import { FeatureItem } from './FeatureItem';
 
 export function FeatureRating() {
   const firestore = useFirestore();
@@ -20,8 +21,8 @@ export function FeatureRating() {
 
   return (
     <ul>
-      {features.map(({ title }) => (
-        <li key={title}>{title}</li>
+      {features.map((feature: any) => (
+        <FeatureItem key={feature.id} feature={feature} />
       ))}
     </ul>
   );
