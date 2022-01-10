@@ -1,45 +1,10 @@
-import {
-  FacebookAuthProvider,
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-} from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { AuthProvider, useAuth, useFirebaseApp, useUser } from 'reactfire';
+import { AuthProvider, useFirebaseApp } from 'reactfire';
+import { UserLogin } from '../components/UserLogin';
 import styles from '../styles/Home.module.css';
-
-function UserLogin() {
-  const { status, data: user } = useUser();
-  const auth = useAuth();
-
-  const signIn = () => {
-    signInWithPopup(auth, new GoogleAuthProvider());
-  };
-
-  const logOut = () => signOut(auth);
-
-  if (status === 'loading') {
-    return <span>loading...</span>;
-  }
-
-  if (!user) {
-    return <button onClick={signIn}>Sign in</button>;
-  }
-
-  return (
-    <h1>
-      Welcome Back, {user.displayName}!
-      {user.photoURL && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={user.photoURL} alt={user.displayName ?? ''} />
-      )}
-      <button onClick={logOut}>Logout</button>
-    </h1>
-  );
-}
 
 const Home: NextPage = () => {
   const app = useFirebaseApp(); // a parent component contains a `FirebaseAppProvider`
