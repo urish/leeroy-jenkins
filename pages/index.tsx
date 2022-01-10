@@ -33,6 +33,7 @@ function UserLogin() {
     <h1>
       Welcome Back, {user.displayName}!
       {user.photoURL && (
+        // eslint-disable-next-line @next/next/no-img-element
         <img src={user.photoURL} alt={user.displayName ?? ''} />
       )}
       <button onClick={logOut}>Logout</button>
