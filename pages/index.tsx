@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import { AuthProvider, FirestoreProvider, useFirebaseApp } from 'reactfire';
 import { FeatureRating } from '../components/FeatureRating';
 import { UserLogin } from '../components/UserLogin';
@@ -11,6 +12,11 @@ const Home: NextPage = () => {
   const app = useFirebaseApp(); // a parent component contains a `FirebaseAppProvider`
   const auth = getAuth(app);
   const firestore = getFirestore(app);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <AuthProvider sdk={auth}>
@@ -23,7 +29,7 @@ const Home: NextPage = () => {
           </Head>
           <UserLogin />
           <h1 className={styles.title}>Leeroy Jenkins Voting App</h1>
-          <FeatureRating />
+          {isClient && <FeatureRating />}
         </div>
       </FirestoreProvider>
     </AuthProvider>
