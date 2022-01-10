@@ -28,7 +28,9 @@ function UserLogin() {
   return (
     <h1>
       Welcome Back, {user.displayName}!
-      <img src={user.photoURL} alt={user.displayName} />
+      {user.photoURL && (
+        <img src={user.photoURL} alt={user.displayName ?? ''} />
+      )}
     </h1>
   );
 }
